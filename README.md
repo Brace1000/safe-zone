@@ -56,12 +56,27 @@ docker-compose up -d
 
 ## 3. GitHub Integration
 
-### Add GitHub Secrets
+### Option A: SonarCloud (Recommended for GitHub)
 
-1. Go to repository Settings → Secrets and variables → Actions
-2. Add secrets:
-   - `SONAR_TOKEN`: Token from SonarQube
-   - `SONAR_HOST_URL`: `http://your-sonarqube-url:9000`
+1. Go to https://sonarcloud.io
+2. Sign in with GitHub
+3. Analyze new project → Select your repository
+4. Generate token: My Account → Security → Generate Token
+5. Add to GitHub Secrets:
+   - `SONAR_TOKEN`: Your SonarCloud token
+6. Update `sonar-project.properties` with your organization
+
+### Option B: Local SonarQube Only
+
+1. Disable GitHub workflows (see `docs/GITHUB_ACTIONS_FIX.md`)
+2. Use local analysis only:
+   ```bash
+   docker run --rm \
+     -e SONAR_HOST_URL="http://host.docker.internal:9000" \
+     -e SONAR_TOKEN="your-token" \
+     -v "$(pwd):/usr/src" \
+     sonarsource/sonar-scanner-cli
+   ```
 
 ### Webhook Configuration (Optional for local)
 
