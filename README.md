@@ -13,8 +13,8 @@ Complete SonarQube integration for code quality and security monitoring.
 ### Start SonarQube
 
 ```bash
-chmod +x setup-sonarqube.sh
-./setup-sonarqube.sh
+
+\
 ```
 
 Or manually:
